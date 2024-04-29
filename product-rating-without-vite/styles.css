@@ -1,0 +1,9 @@
+body {
+  background: yellow;
+}
+
+.star {
+  font-size: 1.5em;
+  color: green;
+  cursor: pointer;
+}
