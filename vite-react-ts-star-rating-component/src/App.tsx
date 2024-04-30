@@ -5,10 +5,15 @@ import StarRating from './components/StarRating.tsx';
 const initialArray = new Array(5).fill(false);
 
 function App() {
+  // TODO: this logic could be simpler and we can remove the use of the arrays
+  // as we know all the rates are dependent on the current hovered/clicked element
+  // which means that we just need to check if the rest of the elements are lower than the
+  // current index and we can use a simple integer to track the hover and the clicked element
   const [starRatingValues, setStarRatingValues] = useState(initialArray)
+  const [hoverStarValues, setHoverStarValues] = useState(initialArray);
 
-  const onSetStarRatingValues = (index: number, value: boolean) => {
-    const newValues = starRatingValues.concat([]);
+  const formatNewValues = (existingValues: boolean[], index: number, value: boolean) => {
+    const newValues = existingValues.concat([]);
     const howManyWereActive = newValues.filter((element) => element === true).length;
 
     if (howManyWereActive > index + 1) {
@@ -17,14 +22,34 @@ function App() {
       newValues.fill(!value, 0, index + 1);
     }
 
-    setStarRatingValues(newValues)
+    return newValues;
+  }
+
+  const onSetStarRatingValues = (index: number, value: boolean) => {
+    const newValues = formatNewValues(starRatingValues, index, value);
+    setStarRatingValues(newValues);
+  }
+
+  const onSetHoverStar = (index: number, value: boolean) => {
+    const newValues = formatNewValues(hoverStarValues, index, value);
+    setHoverStarValues(newValues);
+  }
+
+  const onResetHoverValue = () => {
+    setHoverStarValues(initialArray);
   }
 
   return (
     <>
       <h1>Star Rating Component</h1>
       {starRatingValues.map((starValue, index) =>
-        <StarRating onClick={() => onSetStarRatingValues(index, starValue)} key={index} starValue={starValue} />
+        <StarRating
+          onMouseEnter={() => onSetHoverStar(index, starValue)}
+          onMouseLeave={() => onResetHoverValue()}
+          onClick={() => onSetStarRatingValues(index, starValue)}
+          key={index}
+          hoverValue={hoverStarValues[index]}
+          starValue={starValue} />
       )}
     </>
   )
