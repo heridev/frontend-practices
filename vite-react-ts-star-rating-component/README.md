@@ -5,7 +5,6 @@ npm install
 npm run dev
 ```
 
-Looks like this
 ![image](rating-react-component.jpg)
 
 # Lessons learned here about the logic
