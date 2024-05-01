@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './App.css'
 import StarRating from './components/StarRating.tsx';
+import ControlledComponent from './components/ControlledComponent.tsx';
+import UnControlledComponent from './components/UnControlledComponent.tsx';
 
 const initialArray = new Array(5).fill(false);
 
@@ -51,6 +53,8 @@ function App() {
           hoverValue={hoverStarValues[index]}
           starValue={starValue} />
       )}
+      <ControlledComponent />
+      <UnControlledComponent />
     </>
   )
 }
