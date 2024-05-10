@@ -1,10 +1,32 @@
 import './App.css'
+import { AnotherButton } from './components/AnotherButton.tsx';
+
+const variants: Array<'primary' | 'secondary'> = [
+  'primary',
+  'secondary',
+  'primary',
+  'secondary',
+  'secondary'
+];
 
 function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world</h1>
+      <div>
+        <h1 className=" bg-green">Using Class Variance Authority (CVA)</h1>
+      </div>
+      <div className="flex">
+        {variants.map((variantName, index) => (
+          <div key={variantName + index} className="pr-4">
+            <AnotherButton variant={variantName}>
+              {variantName}
+            </AnotherButton>
+          </div>
+
+        ))
+        }
+      </div >
     </>
   )
 }
